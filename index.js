@@ -28,12 +28,12 @@ async function main() {
 
   const version = core.getInput("version");
   const suffix = getSuffix();
+  const fileName = `asfald${suffix}`
   const url = version
-    ? `https://github.com/asfaload/asfald/releases/download/v${version}/asfald${suffix}`
-    : `https://github.com/asfaload/asfald/releases/download/v0.5.1/asfald${suffix}`
+    ? `https://github.com/asfaload/asfald/releases/download/v${version}/${fileName}`
+    : `https://github.com/asfaload/asfald/releases/download/v0.5.1/${fileName}`
   const checksumsUrl = `https://gh.checksums.asfaload.com/${url.replace("https://", "").replace(`asfald${suffix}`, "")}/checksums.txt`
   const destDir = os.tmpdir();
-  const fileName = `asfaload${suffix}`
   if (process.platform == 'win32') {
     const zipPath = path.join(destDir, fileName, ".zip");
     await exec.exec('curl', ["-L", url, '-o', zipPath])
