@@ -1,0 +1,5 @@
+name: 'Install asfald'
+description: 'Install asfald'
+runs:
+  using: 'node20'
+  main: 'index.js'
