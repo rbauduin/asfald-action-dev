@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('@actions/exec');
 const os = require("os");
+const path = require("path");
 
 function getSuffix() {
   switch (process.platform, process.arch) {
