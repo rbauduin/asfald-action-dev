@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-import * as exec from '@actions/exec'
+const exec = require('@actions/exec');
 
 function getSuffix() {
   switch (process.platform, process.arch) {
