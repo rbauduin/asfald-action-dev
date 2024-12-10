@@ -63,7 +63,8 @@ async function main() {
     await exec.exec('curl', ["-L", url, '-o', path.join(destDir, fileName)])
     await exec.exec('curl', ["-L", checksumsUrl, '-o', path.join(destDir, "checksums.txt")])
     await exec.exec('sha256sum', ["-c", "--ignore-missing", "checksums.txt"], { cwd: destDir })
-    await io.mv(path.join(destDir, fileName), installDir)
+    await exec.exec('chmod', ["+x", fileName], { cwd: destDir })
+    await io.mv(path.join(destDir, fileName), path.join(installDir, "asfald"))
 
   }
   core.addPath(installDir)
