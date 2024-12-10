@@ -24,6 +24,7 @@ function getSuffix() {
 }
 async function main() {
 
+  const version = core.getInput("version");
   const suffix = getSuffix();
   const url = version
     ? `https://github.com/asfaload/asfald/releases/download/v${version}/asfald${suffix}`
