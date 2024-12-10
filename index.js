@@ -31,7 +31,7 @@ async function main() {
   const url = version
     ? `https://github.com/asfaload/asfald/releases/download/v${version}/asfald${suffix}`
     : `https://github.com/asfaload/asfald/releases/download/v0.5.1/asfald${suffix}`
-  const checksumsUrl = `https://gh.checksums.asfaload.com/${url.replace("https://", "").replace(`asfald${suffix}`, "")}`
+  const checksumsUrl = `https://gh.checksums.asfaload.com/${url.replace("https://", "").replace(`asfald${suffix}`, "")}/checksums.txt`
   const destDir = os.tmpdir();
   const fileName = `asfaload - ${suffix}`
   if (process.platform == 'win32') {
