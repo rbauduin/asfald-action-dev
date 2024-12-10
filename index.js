@@ -3,6 +3,7 @@ const github = require('@actions/github');
 const exec = require('@actions/exec');
 const os = require("os");
 const path = require("path");
+const io = require('@actions/io');
 
 function getSuffix() {
   switch (process.platform, process.arch) {
