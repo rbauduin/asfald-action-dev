@@ -44,6 +44,9 @@ function getSuffix() {
 }
 async function main() {
 
+  console.log(process.platform);
+  console.log(process.arch);
+
   const installDir = asfaldDir();
   const version = core.getInput("version");
   const suffix = getSuffix();
@@ -65,6 +68,7 @@ async function main() {
     await exec.exec('sha256sum', ["-c", "--ignore-missing", "checksums.txt"], { cwd: destDir })
     await exec.exec('chmod', ["+x", fileName], { cwd: destDir })
     await io.mv(path.join(destDir, fileName), path.join(installDir, "asfald"))
+    await exec.exec('ls', ['-l', path.join(installDir, "asfald")]);
 
   }
   core.addPath(installDir)
