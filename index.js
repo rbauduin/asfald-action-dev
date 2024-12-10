@@ -23,21 +23,21 @@ function asfaldDir() {
 
 
 function getSuffix() {
-  switch (process.platform, process.arch) {
-    case 'darwin', 'arm64':
+  switch (`${process.platform}, ${process.arch}`) {
+    case 'darwin, arm64':
       return '-aarch64-apple-darwin'
-    case 'darwin', 'x64':
+    case 'darwin, x64':
       return '-x86_64-apple-darwin'
-    case 'win32', 'x64':
+    case 'win32, x64':
       return '-x86_64-pc-windows-gnu.zip'
-    case 'linux', 'x64':
+    case 'linux, x64':
       return '-x86_64-unknown-linux-musl'
-    case 'linux', 'arm':
+    case 'linux, arm':
       return '-armv7-unknown-linux-musleabi'
-    case 'linux', 'arm64':
+    case 'linux, arm64':
       return '-aarch64-unknown-linux-musl'
-    case 'freebsd', 'x64':
-      return '-x86_64-unknown-freebsd '
+    case 'freebsd, x64':
+      return '-x86_64-unknown-freebsd'
     default:
       return `${process.platform}-${process.arch}`
   }
