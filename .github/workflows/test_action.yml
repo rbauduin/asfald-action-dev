@@ -11,3 +11,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: test install
         uses: ./
+      - run: |
+          asfald https://github.com/superfly/flyctl/releases/download/v0.3.48/flyctl_0.3.48_Linux_x86_64.tar.gz
