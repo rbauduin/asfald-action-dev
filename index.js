@@ -5,6 +5,23 @@ const os = require("os");
 const path = require("path");
 const io = require('@actions/io');
 
+// From mise: https://github.com/jdx/mise-action/blob/main/src/utils.ts
+function asfaldDir() {
+  const dir = core.getState('ASFALD_DIR')
+  if (dir) return dir
+
+  const { ASFALD_DATA_DIR, XDG_DATA_HOME, LOCALAPPDATA } = process.env
+  if (ASFALD_DATA_DIR) return ASFALD_DATA_DIR
+  if (XDG_DATA_HOME) return path.join(XDG_DATA_HOME, 'mise')
+  if (process.platform === 'win32' && LOCALAPPDATA)
+    return path.join(LOCALAPPDATA, 'asfald')
+
+  return path.join(os.homedir(), '.local', 'share', 'asfald')
+}
+
+
+
+
 function getSuffix() {
   switch (process.platform, process.arch) {
     case 'darwin', 'arm64':
@@ -27,6 +44,7 @@ function getSuffix() {
 }
 async function main() {
 
+  const installDir = asfaldDir();
   const version = core.getInput("version");
   const suffix = getSuffix();
   const fileName = `asfald${suffix}`
@@ -39,15 +57,16 @@ async function main() {
     const zipPath = path.join(destDir, fileName, ".zip");
     await exec.exec('curl', ["-L", url, '-o', zipPath])
     await exec.exec('unzip', [zipPath, '-d', os.tmpdir()])
-    await io.mv(path.join(os.tmpdir(), fileName, "asfald.exe"), os.homedir())
+    await io.mv(path.join(os.tmpdir(), fileName, "asfald.exe"), installDir)
   }
   else {
     await exec.exec('curl', ["-L", url, '-o', path.join(destDir, fileName)])
     await exec.exec('curl', ["-L", checksumsUrl, '-o', path.join(destDir, "checksums.txt")])
     await exec.exec('sha256sum', ["-c", "--ignore-missing", "checksums.txt"], { cwd: destDir })
-    await io.mv(path.join(destDir, fileName), "/usr/bin/")
+    await io.mv(path.join(destDir, fileName), installDir)
 
   }
+  core.addPath(installDir)
 }
 
 main();
